@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ideas y Guiones · Masterclass en vivo · Nieto´s LAB</title>
+<meta name="description" content="La herramienta de Nieto´s LAB para crear ideas y guiones de vídeo con IA listos para Omni 1.2, más la masterclass en vivo del 15 de diciembre. 5 USD.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0c0b09; --bg2:#100e0b; --surface:#16140f; --surface2:#1d1a14; --line:#2c271c;
+  --fg:#f3ede0; --muted:#a69d8a; --dim:#6f6a61;
+  --gold:#d4a84b; --gold2:#f0c868; --gold-dark:#8a6a26; --gold-soft:rgba(212,168,75,.14);
+  --ok:#3be07f; --alert:#e8574a;
+  --display:"Anton","Arial Narrow",sans-serif;
+  --body:"Montserrat",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+.wrap{max-width:560px;margin:0 auto;padding:0 18px}
+
+/* Barra superior */
+.top{position:sticky;top:0;z-index:20;background:rgba(12,11,9,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.mark{width:34px;height:34px;border-radius:8px;background:linear-gradient(145deg,var(--gold2),var(--gold-dark));display:grid;place-items:center;font-family:var(--display);color:#120f08;font-size:19px}
+.brand b{font-family:var(--display);font-weight:400;font-size:18px;letter-spacing:.04em;display:block;line-height:1}
+.brand small{display:block;font-size:9px;letter-spacing:.32em;color:var(--gold);font-weight:700;margin-top:3px}
+.safe{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--muted);font-weight:600}
+.safe svg{color:var(--ok)}
+
+/* Inicio */
+.hero{position:relative;padding:34px 0 26px;text-align:center;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:-40% -30% auto;height:120%;background:radial-gradient(closest-side,rgba(212,168,75,.22),transparent 70%);pointer-events:none}
+.eyebrow{position:relative;font-size:12px;letter-spacing:.34em;font-weight:800;color:var(--gold)}
+.hero h1{position:relative;font-family:var(--display);font-weight:400;font-size:clamp(46px,13vw,68px);line-height:.98;letter-spacing:.01em;margin:10px 0 14px;color:var(--fg);text-transform:uppercase}
+.hero h1 span{color:var(--gold)}
+.hero p.lead{position:relative;font-size:17px;font-weight:500;color:var(--fg)}
+.hl{color:var(--gold2);font-weight:800}
+.hero .when{position:relative;margin-top:14px;font-size:13px;font-weight:800;letter-spacing:.06em;color:var(--gold);text-transform:uppercase}
+
+/* Tarjeta de pago */
+.pay{background:#f7f2e6;color:#15120c;border-radius:18px;margin:6px 0 18px;overflow:hidden;box-shadow:0 20px 50px rgba(0,0,0,.45)}
+.pay-head{display:flex;justify-content:space-between;align-items:center;background:#15120c;color:var(--fg);padding:12px 16px;font-weight:700;font-size:14px}
+.pay-head span{font-size:12px;color:var(--ok);font-weight:600}
+.pay-body{padding:18px 16px 16px}
+.price{display:flex;align-items:flex-start;gap:4px;font-family:var(--display);line-height:1}
+.price .cur{font-size:22px;color:var(--gold-dark);margin-top:6px}
+.price .num{font-size:66px}
+.price .usd{font-size:18px;color:var(--gold-dark);margin-top:8px}
+.tag{display:inline-block;margin-top:8px;background:#15120c;color:var(--gold2);font-size:11px;font-weight:800;letter-spacing:.12em;padding:6px 10px;border-radius:6px;text-transform:uppercase}
+.includes{margin:14px 0 6px;font-size:14px;font-weight:600;color:#3a3326}
+.includes li{list-style:none;display:flex;gap:8px;margin:6px 0}
+.includes li:before{content:"✓";color:#2a8a4f;font-weight:800}
+.methods{display:grid;gap:10px;margin-top:14px}
+.m{display:flex;align-items:center;gap:12px;width:100%;border:1.5px solid #ded4bf;background:#fff;border-radius:12px;padding:13px 14px;font:inherit;font-weight:700;font-size:15px;color:#15120c;text-decoration:none;cursor:pointer;text-align:left}
+.m:hover{border-color:var(--gold-dark)}
+.m .ic{width:36px;height:36px;border-radius:9px;display:grid;place-items:center;flex:none;font-size:13px;font-weight:800;color:#fff}
+.m .t{flex:1}
+.m .t small{display:block;font-weight:500;font-size:12px;color:#6b6252}
+.m .go{font-size:18px;color:var(--gold-dark)}
+.m.main{background:#15120c;color:var(--fg);border-color:#15120c}
+.m.main small{color:var(--muted)}
+.m.main .go{color:var(--gold2)}
+.ic.card{background:linear-gradient(145deg,var(--gold2),var(--gold-dark));color:#15120c}
+.ic.pp{background:#0b3d91}
+.ic.bn{background:#f0b90b;color:#15120c}
+.binance{display:none;margin-top:10px;background:#fff8e1;border:1.5px dashed #e3c25f;border-radius:12px;padding:14px;font-size:14px}
+.binance.open{display:block}
+.binance .row{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:8px 0;background:#fff;border-radius:8px;padding:10px 12px;border:1px solid #eadfbd}
+.binance code{font-family:ui-monospace,Menlo,monospace;font-size:17px;font-weight:700;letter-spacing:.04em}
+.copy{border:0;background:#15120c;color:var(--gold2);font:inherit;font-size:12px;font-weight:800;padding:8px 12px;border-radius:8px;cursor:pointer}
+.req{margin-top:14px;font-size:12.5px;color:#5a5243;background:#efe7d3;border-radius:10px;padding:10px 12px}
+.req b{color:#15120c}
+.done{display:block;width:100%;margin-top:12px;border:0;background:transparent;color:#5a5243;font:inherit;font-size:13px;font-weight:700;text-decoration:underline;cursor:pointer}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;padding:12px 16px 16px;border-top:1px solid #e6dcc6;background:#f2ebdb}
+.chips span{font-size:10.5px;font-weight:800;letter-spacing:.08em;background:#fff;border:1px solid #ded4bf;border-radius:6px;padding:5px 8px;color:#3a3326}
+
+/* Sellos */
+.trust{display:grid;gap:10px;margin:4px 0 14px}
+.tr{display:flex;gap:12px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.tr .i{width:34px;height:34px;border-radius:50%;background:var(--gold-soft);display:grid;place-items:center;color:var(--gold);flex:none}
+.tr b{display:block;font-size:14px}
+.tr small{color:var(--muted);font-size:12.5px}
+.help{display:block;text-align:center;font-weight:800;color:var(--ok);font-size:15px;padding:14px 0 30px;text-decoration:none}
+
+/* Ficha del evento */
+.event{background:linear-gradient(180deg,#17130b,#0f0d09);border:1px solid var(--gold-dark);border-radius:18px;padding:22px 20px;margin:6px 0 34px}
+.event .price .cur,.event .price .usd{color:var(--gold)}
+.event .price .num{color:var(--fg)}
+.event .tag{background:var(--gold);color:#15120c}
+.facts{margin-top:16px;display:grid;gap:12px}
+.fact{display:flex;flex-wrap:wrap;align-items:center;gap:4px 12px;font-family:var(--display);font-size:22px;letter-spacing:.02em}
+.fact svg{color:var(--gold);flex:none}
+.fact small{flex-basis:100%;padding-left:34px;font-family:var(--body);font-size:13px;color:var(--muted);letter-spacing:0}
+.count{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:18px}
+.count div{background:var(--bg);border:1px solid var(--line);border-radius:10px;text-align:center;padding:10px 4px}
+.count b{display:block;font-family:var(--display);font-weight:400;font-size:30px;color:var(--gold2);line-height:1}
+.count small{font-size:10px;letter-spacing:.14em;color:var(--muted);font-weight:700}
+
+/* Secciones */
+.sec{padding:8px 0 30px}
+.kicker{font-size:12px;letter-spacing:.3em;font-weight:800;color:var(--gold);text-transform:uppercase}
+.sec h2{font-family:var(--display);font-weight:400;font-size:clamp(32px,9vw,44px);line-height:1.02;text-transform:uppercase;margin:8px 0 12px}
+.sec h2 span{color:var(--gold)}
+.sec p.sub{color:var(--muted);font-size:15px;margin-bottom:16px}
+.item{display:flex;gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px;margin-bottom:12px}
+.thumb{width:96px;min-height:110px;flex:none;border-radius:12px;background:linear-gradient(160deg,#2a2214,#0c0b09);border:1px solid var(--gold-dark);display:flex;flex-direction:column;justify-content:space-between;padding:10px;position:relative;overflow:hidden}
+.thumb:after{content:"";position:absolute;right:-18px;bottom:-18px;width:70px;height:70px;border-radius:50%;background:radial-gradient(closest-side,rgba(240,200,104,.35),transparent)}
+.thumb b{font-family:var(--display);font-weight:400;font-size:38px;color:var(--gold2);line-height:1}
+.thumb small{font-size:9px;letter-spacing:.18em;font-weight:800;color:var(--fg)}
+.item .lab{font-size:11px;letter-spacing:.14em;font-weight:800;color:var(--gold);text-transform:uppercase}
+.item h3{font-family:var(--display);font-weight:400;font-size:21px;line-height:1.1;text-transform:uppercase;margin:4px 0 6px}
+.item p{font-size:14px;color:var(--muted)}
+
+/* Ejemplo */
+.sample{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:12px}
+.sample .hd{display:flex;justify-content:space-between;padding:10px 14px;background:var(--surface2);font-size:12px;font-weight:700;color:var(--muted)}
+.sample .hd b{color:var(--gold)}
+.ln{padding:12px 14px;border-top:1px solid var(--line);font-size:14px}
+.ln q{display:block;font-weight:700;color:var(--fg);quotes:"«" "»";margin-bottom:6px}
+.ln span{display:inline-block;font-size:11.5px;color:var(--gold2);background:var(--gold-soft);border-radius:6px;padding:3px 7px;margin:2px 4px 0 0}
+
+/* Comparativa */
+.vs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.vs div{border-radius:14px;padding:14px;font-size:13.5px}
+.vs .bad{background:#141210;border:1px solid #2a2722;color:var(--dim)}
+.vs .good{background:var(--gold-soft);border:1px solid var(--gold-dark)}
+.vs h4{font-family:var(--display);font-weight:400;font-size:18px;text-transform:uppercase;margin-bottom:8px}
+.vs .good h4{color:var(--gold2)}
+.vs li{list-style:none;margin:5px 0}
+
+/* Bonos */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.bonus{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden}
+.bonus .art{height:108px;background:linear-gradient(150deg,#2b2214,#0c0b09 70%);display:grid;place-items:center;border-bottom:1px solid var(--line)}
+.bonus .art svg{color:var(--gold2)}
+.bonus .tx{padding:12px}
+.bonus .lab{font-size:10.5px;letter-spacing:.16em;font-weight:800;color:var(--gold)}
+.bonus h3{font-family:var(--display);font-weight:400;font-size:18px;line-height:1.1;text-transform:uppercase;margin:4px 0 6px}
+.bonus p{font-size:12.5px;color:var(--muted)}
+.urgent{background:var(--alert);color:#fff;border-radius:16px;padding:16px;font-size:14px;font-weight:600}
+.urgent b{display:block;font-family:var(--display);font-weight:400;font-size:17px;line-height:1.15;text-transform:uppercase;margin-bottom:4px}
+
+/* CTA final */
+.cta{display:block;text-align:center;background:linear-gradient(180deg,var(--gold2),var(--gold));color:#15120c;font-family:var(--display);font-size:22px;letter-spacing:.03em;text-transform:uppercase;text-decoration:none;border-radius:14px;padding:16px;margin:18px 0 8px;box-shadow:0 10px 30px rgba(212,168,75,.25)}
+.cta small{display:block;font-family:var(--body);font-size:12px;font-weight:700;text-transform:none;letter-spacing:0}
+
+/* Preguntas */
+details{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:10px}
+summary{cursor:pointer;font-weight:700;font-size:15px;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary:after{content:"+";color:var(--gold);font-weight:800}
+details[open] summary:after{content:"–"}
+details p{color:var(--muted);font-size:14px;margin-top:8px}
+
+/* Gracias */
+.thanks{display:none;position:fixed;inset:0;z-index:50;background:rgba(6,5,4,.92);backdrop-filter:blur(6px);padding:20px;overflow:auto}
+.thanks.on{display:grid;place-items:center}
+.thanks .box{max-width:460px;width:100%;background:var(--surface);border:1px solid var(--gold-dark);border-radius:20px;padding:26px 22px;text-align:center}
+.thanks h2{font-family:var(--display);font-weight:400;font-size:34px;text-transform:uppercase;line-height:1.05;margin:8px 0 10px}
+.thanks h2 span{color:var(--gold)}
+.thanks p{color:var(--muted);font-size:15px;margin-bottom:12px}
+.thanks ol{text-align:left;margin:10px 0 16px 20px;color:var(--fg);font-size:14.5px}
+.thanks ol li{margin:6px 0}
+.wa{display:block;background:#1fae5b;color:#fff;font-weight:800;text-decoration:none;border-radius:12px;padding:14px;margin:8px 0;font-size:16px}
+.wa.alt{background:transparent;border:1.5px solid var(--line);color:var(--fg);font-weight:700;font-size:14px}
+.close{margin-top:10px;background:none;border:0;color:var(--muted);font:inherit;font-size:13px;text-decoration:underline;cursor:pointer}
+
+footer{border-top:1px solid var(--line);margin-top:20px;padding:26px 0 40px;text-align:center;color:var(--dim);font-size:12px}
+footer p{margin:8px 0}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#15120c;color:var(--gold2);border:1px solid var(--gold-dark);padding:10px 16px;border-radius:10px;font-weight:700;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:60}
+.toast.on{opacity:1}
+@media (min-width:900px){ .wrap{max-width:620px} }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#inicio" aria-label="Nieto´s LAB">
+      <div class="mark">N</div>
+      <div><b>NIETO´S LAB</b><small>CONTENIDO CON IA</small></div>
+    </a>
+    <div class="safe">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg>
+      Compra 100% segura
+    </div>
+  </div>
+</header>
+
+<main id="inicio">
+  <section class="hero">
+    <div class="wrap">
+      <div class="eyebrow">MASTERCLASS EN VIVO</div>
+      <h1>Ideas y <span>Guiones</span></h1>
+      <p class="lead">Instala hoy la herramienta que convierte la foto de tu producto en <span class="hl">ideas y guiones listos para crear vídeos con Omni 1.2</span> que se ven reales. Y en vivo te enseño a usarla.</p>
+      <div class="when">Martes 15 de diciembre · 7:00 p. m. Colombia</div>
+    </div>
+  </section>
+
+  <div class="wrap">
+    <!-- Tarjeta de pago -->
+    <section class="pay" id="pagar" aria-label="Pago">
+      <div class="pay-head">Pago seguro <span>🔒 Cifrado</span></div>
+      <div class="pay-body">
+        <div class="price"><span class="cur">$</span><span class="num">5</span><span class="usd">USD</span></div>
+        <div class="tag">Entrada de lanzamiento Omni 1.2</div>
+        <ul class="includes">
+          <li>Herramienta Ideas y Guiones (skill de Claude)</li>
+          <li>Masterclass en vivo · 15 de dic · 7:00 p. m.</li>
+          <li>Grupo privado de WhatsApp</li>
+        </ul>
+        <div class="methods">
+          <a class="m main" href="https://checkout.bold.co/payment/LNK_EAK916DA9D" target="_blank" rel="noopener" data-pay="card">
+            <span class="ic card">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/></svg>
+            </span>
+            <span class="t">Pagar con tarjeta<small>Visa o Mastercard de cualquier país</small></span>
+            <span class="go">›</span>
+          </a>
+          <a class="m" href="https://www.paypal.me/samwinner07/5USD" target="_blank" rel="noopener" data-pay="paypal">
+            <span class="ic pp">PP</span>
+            <span class="t">Pagar con PayPal<small>Saldo PayPal o tarjeta vinculada</small></span>
+            <span class="go">›</span>
+          </a>
+          <button class="m" type="button" id="bnBtn" aria-expanded="false" aria-controls="bnBox">
+            <span class="ic bn">₿</span>
+            <span class="t">Pagar con Binance<small>5 USDT por Binance Pay</small></span>
+            <span class="go">›</span>
+          </button>
+        </div>
+        <div class="binance" id="bnBox">
+          Envía <b>5 USDT</b> por <b>Binance Pay</b> a este Pay ID:
+          <div class="row"><code id="bnId">1147767208</code><button class="copy" type="button" data-copy="1147767208">Copiar</button></div>
+          Guarda la captura del pago: te la pediremos para darte el acceso.
+        </div>
+        <div class="req"><b>Antes de comprar:</b> para usar bien la herramienta necesitas una cuenta de <b>Claude Pro o superior</b>.</div>
+        <button class="done" type="button" data-open-thanks>Ya pagué, quiero mi acceso</button>
+      </div>
+      <div class="chips"><span>VISA</span><span>MASTERCARD</span><span>PAYPAL</span><span>BINANCE</span><span>USDT</span></div>
+    </section>
+
+    <section class="trust" aria-label="Garantías">
+      <div class="tr"><span class="i"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/></svg></span><div><b>Privacidad</b><small>El pago lo procesan Bold, PayPal o Binance. No guardamos tus datos.</small></div></div>
+      <div class="tr"><span class="i"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12l5 5 9-10"/></svg></span><div><b>Acceso inmediato</b><small>Al pagar entras al grupo y recibes la herramienta.</small></div></div>
+      <div class="tr"><span class="i"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 7h16M4 12h10M4 17h7"/></svg></span><div><b>Probada en Omni 1.2</b><small>Con generaciones reales en Flow, no en teoría.</small></div></div>
+      <div class="tr"><span class="i"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.8A8 8 0 1 1 21 12z"/></svg></span><div><b>Soporte humano</b><small>Te ayudamos a instalarla por WhatsApp.</small></div></div>
+    </section>
+    <a class="help" href="https://wa.me/573197568926?text=Hola%2C%20tengo%20una%20duda%20sobre%20Ideas%20y%20Guiones%20y%20la%20masterclass%20del%2015%20de%20diciembre" target="_blank" rel="noopener">¿Tienes dudas? Escríbenos por WhatsApp</a>
+
+    <!-- Ficha del evento -->
+    <section class="event" aria-label="Evento">
+      <div class="price"><span class="cur">$</span><span class="num">5</span><span class="usd">USD</span></div>
+      <div class="tag">Entrada de lanzamiento</div>
+      <div class="facts">
+        <div class="fact"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>15 DIC · MARTES</div>
+        <div class="fact"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>7:00 PM<small>Colombia · 6:00 p. m. México · 9:00 p. m. Argentina</small></div>
+        <div class="fact"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8"/></svg>EN VIVO POR YOUTUBE</div>
+        <div class="fact"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M4 19V5l8 4 8-4v14l-8-4z"/></svg>HERRAMIENTA + CLASE</div>
+      </div>
+      <div class="count" id="count" aria-label="Cuenta regresiva">
+        <div><b id="cd-d">--</b><small>DÍAS</small></div>
+        <div><b id="cd-h">--</b><small>HORAS</small></div>
+        <div><b id="cd-m">--</b><small>MIN</small></div>
+        <div><b id="cd-s">--</b><small>SEG</small></div>
+      </div>
+    </section>
+
+    <!-- Qué obtendrás -->
+    <section class="sec">
+      <div class="kicker">¿Qué obtendrás?</div>
+      <h2>Una herramienta y una clase en vivo para crear vídeos con IA <span>que sí venden</span></h2>
+      <div class="item">
+        <div class="thumb"><b>01</b><small>HERRAMIENTA</small></div>
+        <div><div class="lab">Desde hoy · Ideas y Guiones</div><h3>De una foto a 3 ideas y un guion listo</h3><p>Le pasas la foto de tu producto (o tu idea) y te devuelve 3 ideas con su gancho y el guion completo, con la intención de voz y el gesto de cada línea.</p></div>
+      </div>
+      <div class="item">
+        <div class="thumb"><b>02</b><small>EN VIVO</small></div>
+        <div><div class="lab">15 de diciembre · Masterclass</div><h3>Instálala y úsala conmigo</h3><p>En 2 minutos la tienes en tu Claude. Luego sacamos ideas y guiones en vivo, con productos reales.</p></div>
+      </div>
+      <div class="item">
+        <div class="thumb"><b>03</b><small>DEMO</small></div>
+        <div><div class="lab">El mismo vídeo, de punta a punta</div><h3>Del guion a los clips en Omni 1.2</h3><p>Verás cómo ese guion se convierte en personaje, planos y clips con voz que parecen grabados con el móvil.</p></div>
+      </div>
+    </section>
+
+    <!-- Ejemplo -->
+    <section class="sec">
+      <div class="kicker">Así sale un guion</div>
+      <h2>Cada línea ya trae <span>la voz y el gesto</span></h2>
+      <p class="sub">Un ejemplo real de la herramienta, para un sérum de vitamina C:</p>
+      <div class="sample">
+        <div class="hd"><span>Gancho · confesión</span><b>UGC · Colombia</b></div>
+        <div class="ln"><q>Llevaba dos años echándome más base para tapar algo que se notaba mucho menos con tres gotas.</q><span>Voz: confiesa, media risa</span><span>Gesto: se ríe en «tres gotas»</span><span>Plano: selfie</span></div>
+        <div class="ln"><q>Las manchas de acá… y acá. En las fotos se me veían siempre.</q><span>Voz: íntima, baja</span><span>Gesto: se toca el pómulo en cada «acá»</span><span>Plano: apoya el móvil</span></div>
+      </div>
+      <div class="vs">
+        <div class="bad"><h4>Vídeo IA sin guion</h4><ul><li>✕ Cara quieta</li><li>✕ Un solo plano</li><li>✕ Voz plana</li><li>✕ Sin gancho</li></ul></div>
+        <div class="good"><h4>Con Ideas y Guiones</h4><ul><li>✓ Gancho literal</li><li>✓ Acciones reales</li><li>✓ Voz con intención</li><li>✓ Listo para Omni 1.2</li></ul></div>
+      </div>
+    </section>
+
+    <!-- Bonos -->
+    <section class="sec">
+      <div class="kicker">Eso no es todo</div>
+      <h2>Bonos para <span>arrancar antes de 2027</span></h2>
+      <p class="sub">Incluidos sin costo al reservar tu entrada.</p>
+      <div class="grid">
+        <div class="bonus"><div class="art"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.8A8 8 0 1 1 21 12z"/></svg></div><div class="tx"><div class="lab">BONO 1</div><h3>Grupo privado de WhatsApp</h3><p>Avisos, el enlace del live y recursos hasta el 15 de diciembre.</p></div></div>
+        <div class="bonus"><div class="art"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4h12l4 4v12H4z"/><path d="M8 12h8M8 16h6M8 8h4"/></svg></div><div class="tx"><div class="lab">BONO 2</div><h3>23 estructuras de guion</h3><p>Las que ya funcionaron en anuncios reales, dentro de la herramienta.</p></div></div>
+        <div class="bonus"><div class="art"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M12 7v10M7 12h10"/></svg></div><div class="tx"><div class="lab">BONO 3</div><h3>Guía de instalación</h3><p>Paso a paso para dejarla funcionando en tu Claude.</p></div></div>
+        <div class="urgent"><b>Omni 1.1 se apaga el 5 de diciembre</b>Llega al cambio con tu herramienta lista. La entrada de 5 USD es de lanzamiento.</div>
+      </div>
+      <a class="cta" href="#pagar">Quiero mi entrada<small>5 USD · herramienta + masterclass</small></a>
+    </section>
+
+    <!-- Preguntas -->
+    <section class="sec">
+      <div class="kicker">Preguntas</div>
+      <h2>Lo que <span>te estás preguntando</span></h2>
+      <details><summary>¿Qué es exactamente la herramienta?</summary><p>Una skill de Claude: un archivo que instalas en tu cuenta y que convierte a Claude en tu generador de ideas y guiones de vídeo con IA. La usas cuando quieras, sin límite de guiones más allá de los de tu plan de Claude.</p></details>
+      <details><summary>¿Qué necesito para usarla?</summary><p>Una cuenta de Claude Pro o superior, con la ejecución de código activada. En la masterclass te mostramos cómo dejarla lista.</p></details>
+      <details><summary>¿Sirve si nunca he hecho vídeos con IA?</summary><p>Sí. Te dice qué idea grabar, qué decir en cada línea y con qué gesto. En el live lo hacemos desde cero.</p></details>
+      <details><summary>¿Y si no puedo ver el live a esa hora?</summary><p>La herramienta es tuya desde que pagas. Los avisos y los recursos de la clase llegan al grupo de WhatsApp.</p></details>
+      <details><summary>¿Cómo recibo el acceso?</summary><p>Después de pagar toca «Ya pagué»: entras al grupo de WhatsApp, donde está el enlace de descarga de la herramienta. Si pagaste por PayPal o Binance, mándanos la captura del pago por WhatsApp.</p></details>
+    </section>
+  </div>
+</main>
+
+<!-- Gracias -->
+<div class="thanks" id="gracias" role="dialog" aria-modal="true" aria-labelledby="gTitle">
+  <div class="box">
+    <div class="kicker">Ya casi</div>
+    <h2 id="gTitle">Bienvenido a <span>Nieto´s LAB</span></h2>
+    <p>Sigue estos pasos para recibir tu herramienta:</p>
+    <ol>
+      <li>Únete al grupo privado de WhatsApp.</li>
+      <li>En la descripción del grupo está el enlace para descargar Ideas y Guiones.</li>
+      <li>Si pagaste por PayPal o Binance, envíanos la captura del pago.</li>
+    </ol>
+    <a class="wa" href="https://chat.whatsapp.com/HEejbxgpmfQIjmJORv3HR7" target="_blank" rel="noopener">Entrar al grupo de WhatsApp</a>
+    <a class="wa alt" href="https://wa.me/573197568926?text=Hola%2C%20ya%20pagu%C3%A9%20Ideas%20y%20Guiones%20(5%20USD).%20Aqu%C3%AD%20va%20mi%20captura%20del%20pago." target="_blank" rel="noopener">Enviar captura del pago (PayPal o Binance)</a>
+    <button class="close" type="button" data-close-thanks>Volver a la página</button>
+  </div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <p><b style="color:var(--muted)">Nieto´s LAB</b> · Ideas y Guiones · Masterclass en vivo</p>
+    <p>Este sitio no forma parte de Meta Platforms, Google ni Anthropic, ni está respaldado por ellos. Claude es una marca de Anthropic; Omni y Flow son productos de Google.</p>
+    <p>Los resultados dependen del trabajo y la dedicación de cada persona. No prometemos ingresos.</p>
+    <p>¿Dudas? WhatsApp +57 319 756 8926</p>
+  </div>
+</footer>
+<div class="toast" id="toast">Copiado</div>
+
+<script>
+(function(){
+  // Cuenta regresiva al martes 15 de diciembre de 2026, 7:00 p. m. Colombia (UTC-5)
+  var target = Date.UTC(2026, 11, 16, 0, 0, 0);
+  function pad(n){ return (n<10?'0':'') + n; }
+  function tick(){
+    var d = Math.max(0, target - Date.now());
+    var s = Math.floor(d/1000);
+    document.getElementById('cd-d').textContent = pad(Math.floor(s/86400));
+    document.getElementById('cd-h').textContent = pad(Math.floor(s%86400/3600));
+    document.getElementById('cd-m').textContent = pad(Math.floor(s%3600/60));
+    document.getElementById('cd-s').textContent = pad(s%60);
+  }
+  tick(); setInterval(tick, 1000);
+
+  // Binance
+  var bnBtn = document.getElementById('bnBtn'), bnBox = document.getElementById('bnBox');
+  bnBtn.addEventListener('click', function(){
+    var open = bnBox.classList.toggle('open');
+    bnBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+
+  // Copiar
+  var toast = document.getElementById('toast');
+  function show(msg){ toast.textContent = msg; toast.classList.add('on'); setTimeout(function(){ toast.classList.remove('on'); }, 1600); }
+  document.querySelectorAll('[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var v = b.getAttribute('data-copy');
+      try {
+        navigator.clipboard.writeText(v).then(function(){ show('Pay ID copiado'); }, function(){ show('Copia el número: ' + v); });
+      } catch(e){ show('Copia el número: ' + v); }
+    });
+  });
+
+  // Gracias (se abre con «Ya pagué» o al volver de Bold con #gracias)
+  var thanks = document.getElementById('gracias');
+  function openThanks(){ thanks.classList.add('on'); }
+  function closeThanks(){ thanks.classList.remove('on'); if (location.hash === '#gracias') { history.replaceState(null, '', location.pathname + location.search); } }
+  document.querySelectorAll('[data-open-thanks]').forEach(function(b){ b.addEventListener('click', openThanks); });
+  document.querySelectorAll('[data-close-thanks]').forEach(function(b){ b.addEventListener('click', closeThanks); });
+  function checkHash(){ if (location.hash === '#gracias') openThanks(); }
+  window.addEventListener('hashchange', checkHash); checkHash();
+})();
+</script>
+</body>
+</html>
